@@ -264,6 +264,15 @@
     static const type assignment
 # endif // defined(ASIO_HAS_CONSTEXPR)
 #endif // !defined(ASIO_STATIC_CONSTEXPR)
+#if !defined(ASIO_STATIC_CONSTEXPR_DEFAULT_INIT)
+# if defined(ASIO_HAS_CONSTEXPR)
+#  define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
+    static constexpr const type name{}
+# else // defined(ASIO_HAS_CONSTEXPR)
+#  define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
+    static const type name
+# endif // defined(ASIO_HAS_CONSTEXPR)
+#endif // !defined(ASIO_STATIC_CONSTEXPR_DEFAULT_INIT)
 
 // Support noexcept on compilers known to allow it.
 #if !defined(ASIO_HAS_NOEXCEPT)
