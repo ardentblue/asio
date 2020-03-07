@@ -417,9 +417,11 @@
 #if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 # if !defined(ASIO_DISABLE_VARIABLE_TEMPLATES)
 #  if defined(__clang__)
-#   if __has_feature(__cxx_variable_templates__)
-#    define ASIO_HAS_VARIABLE_TEMPLATES 1
-#   endif // __has_feature(__cxx_variable_templates__)
+#   if (__cplusplus >= 201703)
+#    if __has_feature(__cxx_variable_templates__)
+#     define ASIO_HAS_VARIABLE_TEMPLATES 1
+#    endif // __has_feature(__cxx_variable_templates__)
+#   endif // (__cplusplus >= 201703)
 #  endif // defined(__clang__)
 #  if defined(__GNUC__)
 #   if (__GNUC__ >= 5)
