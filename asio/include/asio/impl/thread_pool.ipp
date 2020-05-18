@@ -64,6 +64,12 @@ void thread_pool::stop()
   scheduler_.stop();
 }
 
+void thread_pool::attach()
+{
+  asio::error_code ec;
+  scheduler_.run(ec);
+}
+
 void thread_pool::join()
 {
   if (!threads_.empty())
@@ -78,6 +84,12 @@ detail::scheduler& thread_pool::add_scheduler(detail::scheduler* s)
   detail::scoped_ptr<detail::scheduler> scoped_impl(s);
   asio::add_service<detail::scheduler>(*this, scoped_impl.get());
   return *scoped_impl.release();
+}
+
+void thread_pool::wait()
+{
+  scheduler_.work_finished();
+  threads_.join();
 }
 
 } // namespace asio
